@@ -1,0 +1,261 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "PBX Swagger API documentation example",
+        "description": "API",
+        "contact": {
+            "email": "deerstalker@inbox.ru"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "3.0.0"
+    },
+    "paths": {
+        "/api/test": {
+            "post": {
+                "tags": [
+                    "Test"
+                ],
+                "summary": "Получить тестовые данные",
+                "description": "Возвращает тестовые данные пользователя",
+                "operationId": "getTestData",
+                "responses": {
+                    "200": {
+                        "description": "Успешный запрос",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Administrator"
+                                                },
+                                                "login": {
+                                                    "type": "string",
+                                                    "example": "admin"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-05-10T13:19:55.609000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-05-10T13:19:55.609000Z"
+                                                },
+                                                "id": {
+                                                    "type": "string",
+                                                    "example": "681f527b8ab7526eb80a1d12"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Данные успешно получены"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Не авторизован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 1003
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": "API_KEY_MISSING"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Api key not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Действие запрещено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 1008
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": "FORBIDDEN"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Action not allowed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Не найдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 1007
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": "ENTITY_NOT_FOUND"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Запись не найдена"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model"
+                                        },
+                                        "exception": {
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "file": {
+                                            "type": "string",
+                                            "example": "/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php"
+                                        },
+                                        "line": {
+                                            "type": "integer",
+                                            "example": 639
+                                        },
+                                        "trace": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "XApiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "XApiAuth": {
+                "type": "apiKey",
+                "name": "X-API-KEY",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Test",
+            "description": "Test"
+        }
+    ],
+    "security": {
+        "csrf_token": {
+            "enable": false
+        }
+    }
+}
