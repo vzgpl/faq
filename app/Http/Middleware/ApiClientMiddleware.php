@@ -22,7 +22,7 @@ class ApiClientMiddleware
     {
         $apiKey = $request->header('X-API-KEY');
 
-        if (!empty($apiKey)){
+        if (empty($apiKey)){
             $response = $this->errorResponse('Api key not found',
                 ApiService::API_KEY_MISSING, [], 401);
             return response()->json($response->data, $response->httpCode);

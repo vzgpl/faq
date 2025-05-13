@@ -46,6 +46,16 @@ class ApiService
      */
     public const FORBIDDEN = 1008;
 
+    /**
+     * Ошибка валидации данных
+     */
+    public const VALIDATION_ERROR = 1009;
+
+    /**
+     * Сбой в отправки оповещения
+     */
+    public const FAILED_DEPENDENCY = 1010;
+
     public static function textError(int $codError): string
     {
         $reflection = new \ReflectionClass(__CLASS__);

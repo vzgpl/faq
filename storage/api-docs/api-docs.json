@@ -236,6 +236,228 @@
                     }
                 ]
             }
+        },
+        "/api/send-request": {
+            "post": {
+                "tags": [
+                    "Site Requests"
+                ],
+                "summary": "Отправка заявки с сайта",
+                "description": "Принимает имя и телефон от пользователя и отправляет заявку на обработку",
+                "operationId": "sendSiteRequest",
+                "requestBody": {
+                    "description": "Данные заявки",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Имя клиента",
+                                        "type": "string",
+                                        "example": "Тест Тестов"
+                                    },
+                                    "phone": {
+                                        "description": "Телефон",
+                                        "type": "string",
+                                        "example": "+7301570000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Заявка успешно принята",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Тест Тестов"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "+7301570000"
+                                                },
+                                                "ip": {
+                                                    "type": "string",
+                                                    "example": "127.0.0.1"
+                                                },
+                                                "received_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-05-15T14:30:00"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Заявка успешно отправлена"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Поле имя обязательно для заполнения"
+                                                    }
+                                                },
+                                                "phone": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "Поле телефон обязательно для заполнения"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 1009
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": "VALIDATION_ERROR"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ошибка валидации данных"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "424": {
+                        "description": "Сбой в отправки оповещения",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 1010
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": "FAILED_DEPENDENCY"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Сбой в отправки оповещения"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка сервера",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "server": "Internal server error"
+                                            }
+                                        },
+                                        "codError": {
+                                            "type": "integer",
+                                            "example": 1000
+                                        },
+                                        "textError": {
+                                            "type": "string",
+                                            "example": "SERVER_ERROR"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Произошла ошибка при обработке заявки"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -251,6 +473,10 @@
         {
             "name": "Test",
             "description": "Test"
+        },
+        {
+            "name": "Site Requests",
+            "description": "Site Requests"
         }
     ],
     "security": {
